@@ -1,5 +1,11 @@
 import React from 'react';
 
+// Import collection images
+import collection1 from '../assets/food-1.jpg'; // Reusing food-1 since it's the same image
+import collection2 from '../assets/collection-2.jpg';
+import collection3 from '../assets/collection-3.jpg';
+import collection4 from '../assets/collection-4.jpg';
+
 const Collections = () => {
   return (
     <div className="container mx-auto px-4 py-12">
@@ -8,19 +14,19 @@ const Collections = () => {
         {[
           {
             name: 'Must-Try This Week',
-            image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836'
+            image: collection1
           },
           {
             name: 'Hidden Gems',
-            image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5'
+            image: collection2
           },
           {
             name: 'Date Night Spots',
-            image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0'
+            image: collection3
           },
           {
             name: 'Luxury Dining',
-            image: 'https://images.unsplash.com/photo-1592861956120-e524fc739696'
+            image: collection4
           }
         ].map((collection) => (
           <div key={collection.name} className="relative rounded-lg overflow-hidden h-64 group cursor-pointer">

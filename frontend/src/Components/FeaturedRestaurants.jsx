@@ -1,5 +1,11 @@
 import React from 'react';
 
+// Import restaurant images
+import restaurant1 from '../assets/restaurant-1.jpg';
+import restaurant2 from '../assets/restaurant-2.jpg';
+import restaurant3 from '../assets/restaurant-3.jpg';
+import restaurant4 from '../assets/restaurant-4.jpg';
+
 const FeaturedRestaurants = ({ filters }) => {
   return (
     <div className="container mx-auto px-4 py-12">
@@ -9,22 +15,22 @@ const FeaturedRestaurants = ({ filters }) => {
           {
             name: 'Punjab Grill',
             cuisine: 'Punjabi',
-            image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-4.0.3'
+            image: restaurant1
           },
           {
             name: 'Dragon House',
             cuisine: 'Chinese',
-            image: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?ixlib=rb-4.0.3'
+            image: restaurant2
           },
           {
             name: 'La Piazza',
             cuisine: 'Italian',
-            image: 'https://images.unsplash.com/photo-1579684947550-22e945225d9a?ixlib=rb-4.0.3'
+            image: restaurant3
           },
           {
             name: 'Sushi Ko',
             cuisine: 'Japanese',
-            image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3'
+            image: restaurant4
           }
         ].map((restaurant) => (
           <div key={restaurant.name} className="relative rounded-lg overflow-hidden h-64 group cursor-pointer">

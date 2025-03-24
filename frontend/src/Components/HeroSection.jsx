@@ -1,6 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+// Import images
+import food1 from '../assets/food-1.jpg';
+import food2 from '../assets/food-2.jpg';
+import food3 from '../assets/food-3.jpg';
+import food4 from '../assets/food-4.jpg';
+import food5 from '../assets/food-5.jpg';
+import food6 from '../assets/food-6.jpg';
+import food7 from '../assets/food-7.jpg';
+import food8 from '../assets/food-8.jpg';
+
 const HeroSection = () => {
   return (
     <div className="relative h-[80vh] min-h-[600px]">
@@ -8,14 +18,14 @@ const HeroSection = () => {
         <div className="relative h-full w-full">
           <div className="absolute inset-0 grid grid-cols-4 grid-rows-2 gap-2 opacity-60">
             {[
-              'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-              'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe',
-              'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38',
-              'https://images.unsplash.com/photo-1482049016688-2d3e1b311543',
-              'https://images.unsplash.com/photo-1467003909585-2f8a72700288',
-              'https://images.unsplash.com/photo-1484723091739-30a097e8f929',
-              'https://images.unsplash.com/photo-1473093295043-cdd812d0e601',
-              'https://images.unsplash.com/photo-1539136788836-5699e78bfc75'
+              food1,
+              food2,
+              food3,
+              food4,
+              food5,
+              food6,
+              food7,
+              food8
             ].map((src, index) => (
               <img
                 key={index}
