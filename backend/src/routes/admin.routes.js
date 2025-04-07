@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { createAdmin, updateAdmin, loginAdmin } = require("../controller/admin.controller");
+const { verifyAdmin } = require("../middleware/auth.middleware.js");
+const { createAdmin, loginAdmin, updateAdmin, getRestraurants } = require("../controller/admin.controller.js");
 
-// Route to create an admin
 router.post("/create", createAdmin);
-// Route to update an admin
-router.post("/update", updateAdmin);
 router.post("/login", loginAdmin);
+router.put("/update", verifyAdmin, updateAdmin); // Protected route for admin updates
+router.get  ("/restaurants", verifyAdmin, getRestraurants); // Protected route for admin updates
 
 module.exports = router;

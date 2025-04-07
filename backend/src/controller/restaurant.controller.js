@@ -5,17 +5,16 @@ const asyncHandler = require("../utils/asyncHandler.js");
 
 
 const createRestaurant = asyncHandler(async (req,res)=>{
-    
-    const { name ,location,contactInfo,cuisineType} = req.body
+    const { name ,location,contact,cuisineType} = req.body
     const admin = req.admin
-    if(!name || !location || !contactInfo || !cuisineType){
+    if(!name || !location || !contact || !cuisineType){
         throw new ApiError(400,"All fields are requird.")
     }
 
     const createdobj = await Reataurant.create({
-        name ,location,contactInfo,cuisineType,admin:admin?._id
+        name ,location,contactInfo:contact,cuisineType,admin:req.admin?._id
     })
-
+    
     if(!createdobj){
         throw new ApiError(500,"Some internal error occured")
     }
@@ -23,4 +22,9 @@ const createRestaurant = asyncHandler(async (req,res)=>{
     return res.status(201).json(new ApiResponse(201,createdobj,"Success!"))
 })
 
-module.exports = {createRestaurant};
+const getRestraurantData = async(req,res)=>{
+    const id = req.params.id
+    
+}
+
+module.exports = {createRestaurant,getRestraurantData};

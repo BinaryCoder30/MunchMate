@@ -27,7 +27,7 @@ const LoginForm = () => {
       localStorage.setItem("token", token); // Store JWT in localStorage
       localStorage.setItem("user", JSON.stringify(user)); // Store user data
 
-      navigate("/dashboard"); // Redirect to dashboard after login
+      navigate("/"); // Redirect to dashboard after login
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Try again.");
     } finally {

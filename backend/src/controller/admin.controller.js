@@ -1,91 +1,89 @@
-const Admin = require("../models/admin.model");
-const ApiError = require("../utils/apiError")
-const ApiResponse = require("../utils/apiResponse")
-const asyncHandler = require("../utils/asyncHandler")
+const Admin = require("../models/admin.model.js");
+const asyncHandler = require("../utils/asyncHandler.js");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const Reataurant = require("../models/restaurant.model.js");
 
+const createAdmin = asyncHandler(async (req, res) => {
+    const { name, email, password } = req.body;
+    console.log("🔹 Create Admin Request:", req.body);
 
-const generateTokens = async (userId) => {
+    const existingAdmin = await Admin.findOne({ email });
+    if (existingAdmin) {
+        return res.status(400).json({ message: "Admin already exists" });
+    }
+
     try {
-        const user = await Admin.findById(userId)
-        const accessToken = user.generateAccessToken()
-      
-        await user.save({ validateBeforeSave: false })
-        return accessToken
+        // Trim password to avoid spaces and ensure consistent hashing
+        const hashedPassword = await bcrypt.hash(password.trim(), 10);
+        console.log("🔐 Hashed Password (Before Storing):", hashedPassword);
+
+        const newAdmin = await Admin.create({ name, email, password: hashedPassword });
+
+        // Fetch stored admin to verify
+        const storedAdmin = await Admin.findOne({ email });
+        console.log("🗄 Stored Hashed Password:", storedAdmin.password);
+
+        res.status(201).json({
+            message: "✅ Admin created successfully",
+            admin: { id: newAdmin._id, name: newAdmin.name, email: newAdmin.email },
+        });
     } catch (error) {
-        throw new ApiError(500, "Something went wrong while generating refresh and access tokens")
+        console.error("❌ Error creating admin:", error);
+        res.status(500).json({ message: "Server error, try again" });
     }
-}
+});
 
-const createAdmin = asyncHandler(async (req,res)=>{
-    console.log(req.body);
-    
-    const { name ,email,password} = req.body
-    if(!name || !email || !password){
-        throw new ApiError(400,"All fields are requird.")
-    }
 
-    const createdAdmin = await Admin.create({
-        name,email:email,password:password
-    })
-
-    if(!createdAdmin){
-        throw new ApiError(500,"Some internal error occured")
-    }
-
-    return res.status(201).json(new ApiResponse(201,createdAdmin,"Success!"))
-})
-const updateAdmin = asyncHandler(async (req,res)=>{
-    const { name ,email,password,adminId} = req.body
-    if(!name || !email || !password){
-        throw new ApiError(400,"All fields are requird.")
-    }
-
-    const existedAdmin = await Admin.findById(adminId)
-
-    if(!existedAdmin){
-        throw new ApiError(404,"Admin not found")
-    }
-
-    existedAdmin.name = name
-    existedAdmin.email = email
-    existedAdmin.password = password
-    await existedAdmin.save()
-
-    return res.status(200).json(new ApiResponse(200,existedAdmin,"Updated!"))
-})
 
 const loginAdmin = asyncHandler(async (req, res) => {
-    const { email, username, password } = req.body
-    console.log(req.body);
+    const { email, password } = req.body;
+    console.log("🔹 Login Attempt:", req.body);
 
-    if (!username && !email) {
-        throw new ApiError(400, "Username or password is required")
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) {
+        return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const user = await Admin.findOne({ $or: [{ email }, { username }] })
+    console.log("🔐 Stored Hashed Password:", admin.password);
 
-    if (!user) {
-        throw new ApiError(404, "User doesn't exist")
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
+
+    console.log("🔍 Password Match:", isPasswordValid);
+
+    if (!isPasswordValid) {
+        return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const checkPassword = await user.isPasswordCorrect(password)
+    const token = jwt.sign({ _id: admin._id }, process.env.JWT_SECTRET, { expiresIn: "1d" });
 
-    if (!checkPassword) {
-        throw new ApiError(401, "Invalid user credentials")
+    res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
+
+    res.status(200).json({ message: "Login successful", token });
+});
+
+const updateAdmin = asyncHandler(async (req, res) => {
+    const { name, email } = req.body;
+
+    const updatedAdmin = await Admin.findByIdAndUpdate(
+        req.admin._id, // Ensure `req.admin` is set by `verifyAdmin`
+        { name, email },
+        { new: true }
+    );
+
+    if (!updatedAdmin) {
+        return res.status(404).json({ message: "Admin not found" });
     }
-    const token = await generateTokens(user._id)
 
-    const loggedInUser = await Admin.findById(user._id).select("-password")
-
+    res.status(200).json({ message: "Admin updated successfully", admin: updatedAdmin });
+});
+const getRestraurants = async(req,res)=>{
+    const admin = req.admin
+    console.log(req.admin._id)
+    const restraunats = await Reataurant.find({admin:req.admin._id})
+    console.log(restraunats)
+    return res.status(200).json({message:"restraunats are fetched successfully",restaurant:restraunats})
     
-    return res.status(200)
-        .json(new ApiResponse(200, { user: loggedInUser, token}, "User Logged in successfully"))
-
-})
-
-
-
-module.exports = {
-    createAdmin,
-    updateAdmin,
-    loginAdmin};
+}
+module.exports = { createAdmin, loginAdmin, updateAdmin ,getRestraurants};

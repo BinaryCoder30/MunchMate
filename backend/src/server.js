@@ -32,7 +32,7 @@ app.use("/api/user", userRoutes);
 
 //----------------------------restaurant------------------------------
 const restaurantRoutes = require("./routes/restaurant.routes.js");
-app.use("/api/restaurant", restaurantRoutes);
+app.use("/api/restaurants", restaurantRoutes);
 
 //----------------------------menuItem------------------------------
 const menuItemroutes = require("./routes/menuItem.routes.js");

@@ -1,7 +1,8 @@
-import React, { lazy, Suspense, useMemo, useState, useCallback } from 'react';
+import React, { useEffect,lazy, Suspense, useMemo, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { debounce } from 'lodash';
+import { jwtDecode } from 'jwt-decode';
 
 // Lazy-loaded components
 const HeroSection = lazy(() => import('../Components/HeroSection'));
@@ -15,6 +16,32 @@ const MunchMateHomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if user is logged in
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000; 
+        if (decodedToken.exp > currentTime) {
+          setIsLoggedIn(true);
+        } else {
+          localStorage.removeItem('token');
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error('Invalid token:', error);
+        setIsLoggedIn(false);
+      }
+    }
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/login');
+  };
 
   // Handle scroll effect
   React.useEffect(() => {
@@ -67,7 +94,7 @@ const MunchMateHomePage = () => {
               {[
                 { name: 'Home', icon: '🏠', path: '/' },
                 { name: 'Order', icon: '🛵', path: '/order' },
-                { name: 'Restaurants', icon: '🍽', path: '/restaurants' },
+                { name: 'Restaurants', icon: '🍽', path: '/restaurant' },
                 { name: 'About', icon: '📃', path: '/about' }
               ].map((item) => (
                 <motion.button
@@ -121,22 +148,38 @@ const MunchMateHomePage = () => {
               </motion.button>
 
               {/* Auth Buttons */}
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate("/login")} 
-                className="bg-[#3498DB] text-white px-6 py-2.5 rounded-full hover:bg-[#2C3E50] transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg"
-              >
-                Log in
-              </motion.button>
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate("/signup")} 
-                className="bg-white text-[#3498DB] px-6 py-2.5 rounded-full hover:bg-[#3498DB] hover:text-white transition-all duration-300 font-medium text-sm border-2 border-[#3498DB] shadow-md hover:shadow-lg hidden md:block"
-              >
-                Sign up
-              </motion.button>
+              <div className="flex items-center space-x-4">
+              {/* Auth Buttons */}
+              {isLoggedIn ? (
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-6 py-2.5 rounded-full hover:bg-red-600 transition-all duration-300 font-medium text-sm shadow-md"
+                >
+                  Logout
+                </motion.button>
+              ) : (
+                <>
+                  <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/login")} 
+                    className="bg-[#3498DB] text-white px-6 py-2.5 rounded-full hover:bg-[#2C3E50] transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg"
+                  >
+                    Log in
+                  </motion.button>
+                  <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/signup")} 
+                    className="bg-white text-[#3498DB] px-6 py-2.5 rounded-full hover:bg-[#3498DB] hover:text-white transition-all duration-300 font-medium text-sm border-2 border-[#3498DB] shadow-md hover:shadow-lg hidden md:block"
+                  >
+                    Sign up
+                  </motion.button>
+                </>
+              )}
+            </div>
             </div>
           </div>
         </div>
