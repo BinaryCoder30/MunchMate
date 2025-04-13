@@ -6,6 +6,7 @@ const Admin = require("../models/admin.model.js");
 
 const verifyUser = asyncHandler(async (req, res, next) => {
     try {
+        
         const token = req.cookies?.token || req.header("Authorization")?.replace("Bearer ", "");
 
         if (!token) {
@@ -35,6 +36,9 @@ const verifyUser = asyncHandler(async (req, res, next) => {
 
 const verifyAdmin = asyncHandler(async (req, res, next) => {
     try {
+        console.log(req.cookies);
+        console.log( req.header("Authorization")?.replace("Bearer ", ""));
+        
         const token = req.cookies?.token || req.header("Authorization")?.replace("Bearer ", "");
         if (!token) {
             throw new ApiError(401, "Unauthorized request - No token provided");
@@ -43,7 +47,6 @@ const verifyAdmin = asyncHandler(async (req, res, next) => {
         const decodedInfo = jwt.verify(token, process.env.JWT_SECTRET);
 
         const admin = await Admin.findById(decodedInfo?._id).select("-password");
-
         if (!admin) {
             throw new ApiError(403, "Invalid Admin Access Token");
         }

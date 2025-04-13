@@ -40,7 +40,7 @@ app.use("/api/menuItem", menuItemroutes);
 
 //----------------------------order------------------------------
 const orderroutes = require("./routes/order.routes.js");
-app.use("/api/order", orderroutes);
+app.use("/api/orders", orderroutes);
 
 //----------------------------orderdetails------------------------------
 const orderDetailsroutes = require("./routes/orderDetails.routes.js");

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios
+import Cookies from "js-cookie"; // Import js-cookie
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -23,7 +24,8 @@ const LoginForm = () => {
       });
 
       const { token, user } = res.data.data; // Get token from response
-
+      Cookies.set("token", token);
+      Cookies.set("userID", user._id);
       localStorage.setItem("token", token); // Store JWT in localStorage
       localStorage.setItem("user", JSON.stringify(user)); // Store user data
 

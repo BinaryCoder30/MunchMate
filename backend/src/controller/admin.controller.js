@@ -60,7 +60,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
 
     res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({ message: "Login successful",admin:admin,token: token });
 });
 
 const updateAdmin = asyncHandler(async (req, res) => {
@@ -82,7 +82,7 @@ const getRestraurants = async(req,res)=>{
     const admin = req.admin
     console.log(req.admin._id)
     const restraunats = await Reataurant.find({admin:req.admin._id})
-    console.log(restraunats)
+    // console.log(restraunats)
     return res.status(200).json({message:"restraunats are fetched successfully",restaurant:restraunats})
     
 }

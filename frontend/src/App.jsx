@@ -7,7 +7,7 @@ const Profile = lazy(() => import("./Pages/Profile"));
 const AuthForm = lazy(() => import("./Pages/SignUp"));
 const LoginPage = lazy(() => import("./Pages/Login"));
 const Restaurant = lazy(() => import("./Pages/Restaurant"));
-
+const  OrderPage=lazy(() => import("./Pages/Order"));
 // Admin Routes
 const AdminDashboard = lazy(() => import("./Pages/Admin/Dashboard/AdminDashboard"));
 const AdminLogin = lazy(() => import("./Pages/Admin/Auth/LoginPage"));
@@ -53,6 +53,7 @@ function App() {
           <Route path="/signup" element={<AuthForm />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/restaurant" element={<Restaurant />} />
+          <Route path="/order" element={<OrderPage />} />
 
           {/* Admin Routes */}
           <Route path="/admin" element={<Navigate to="/admin/login" replace />} />

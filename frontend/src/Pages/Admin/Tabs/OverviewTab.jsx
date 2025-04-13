@@ -51,8 +51,8 @@ const OverviewTab = ({ data = {}, menuItems = [] }) => {
           <div className="space-y-4 text-indigo-800">
             <p><span className="font-medium">Name:</span> {data.name || 'N/A'}</p>
             <p><span className="font-medium">Location:</span> {data.location || 'N/A'}</p>
-            <p><span className="font-medium">Cuisine:</span> {data.cuisine || 'N/A'}</p>
-            <p><span className="font-medium">Contact:</span> {data.contact || 'N/A'}</p>
+            <p><span className="font-medium">Cuisine:</span> {data.cuisineType || 'N/A'}</p>
+            <p><span className="font-medium">Contact:</span> {data.contactInfo || 'N/A'}</p>
             <p><span className="font-medium">Rating:</span> {data.rating ? `${data.rating} ⭐` : 'N/A'}</p>
           </div>
         </div>
@@ -69,12 +69,12 @@ const OverviewTab = ({ data = {}, menuItems = [] }) => {
               </thead>
               <tbody className="divide-y divide-indigo-200">
                 {recentOrders.map((order) => (
-                  <tr key={order.orderID || Math.random()} className="hover:bg-indigo-50 transition-colors">
+                  <tr key={order._id || Math.random()} className="hover:bg-indigo-50 transition-colors">
                     <td className="px-4 py-2 whitespace-nowrap text-sm text-indigo-800">
-                      {order.orderID || 'N/A'}
+                      {order._id || 'N/A'}
                     </td>
                     <td className="px-4 py-2 whitespace-nowrap text-sm text-indigo-800">
-                      {order.user || 'N/A'}
+                      {order.userID?.name || 'N/A'}
                     </td>
                     <td className="px-4 py-2 whitespace-nowrap text-sm text-indigo-800">
                       ₹{order.totalAmount || 0}

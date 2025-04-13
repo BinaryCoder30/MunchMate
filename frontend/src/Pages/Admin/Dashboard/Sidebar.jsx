@@ -10,7 +10,7 @@ const Sidebar = ({ restaurantData, activeTab, setActiveTab, handleLogout, downlo
         <p className="text-sm text-indigo-200">{restaurantData?.location}</p>
       </div>
       <nav className="mt-4">
-        {["overview", "orders", "menu", "profit-loss", "deliveries", "customer-stats", "settings"].map((tab) => (
+        {["overview", "orders", "menu", "profit-loss", "deliveries", "settings"].map((tab) => (
           <motion.button 
             key={tab} 
             onClick={() => setActiveTab(tab)} 
@@ -23,7 +23,7 @@ const Sidebar = ({ restaurantData, activeTab, setActiveTab, handleLogout, downlo
             {tab === "menu" && <FaUtensils />}
             {tab === "profit-loss" && <FaMoneyBillWave />}
             {tab === "deliveries" && <FaTruck />}
-            {tab === "customer-stats" && <FaUser />}
+            {/* {tab === "customer-stats" && <FaUser />} */}
             {tab === "settings" && <FaUserCircle />}
             <span>{tab.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>
           </motion.button>

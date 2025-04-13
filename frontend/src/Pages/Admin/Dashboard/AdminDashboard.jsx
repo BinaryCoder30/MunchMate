@@ -67,7 +67,7 @@ const AdminDashboard = () => {
 
       // Check if there's a restaurantId in cookies that belongs to this admin
       const cookieRestaurantId = Cookies.get("restaurantId");
-      if (cookieRestaurantId && data.restaurants.some(r => r.id === cookieRestaurantId)) {
+      if (cookieRestaurantId && data.restaurant.some(r => r.id === cookieRestaurantId)) {
         setRestaurantId(cookieRestaurantId);
         fetchRestaurantData(cookieRestaurantId);
       } else if (data.restaurant?.length > 0) {
@@ -84,6 +84,58 @@ const AdminDashboard = () => {
       setLoading(false);
     }
   };
+  // Inside AdminDashboard component (before the return statement)
+
+// Function to add a new menu item
+const addMenuItem = async (newItem) => {
+  try {
+    setLoading(true);
+    const response = await fetch(`${API_BASE_URL}/restaurants/${restaurantId}/menu`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Cookies.get("adminToken")}`
+      },
+      body: JSON.stringify(newItem),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add menu item');
+    }
+
+    const data = await response.json();
+    setMenuItems([...menuItems, data]); // Update state with new item
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+// Function to remove a menu item
+const removeMenuItem = async (itemId) => {
+  try {
+    setLoading(true);
+    const response = await fetch(`${API_BASE_URL}/restaurants/${restaurantId}/menu/${itemId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${Cookies.get("adminToken")}`
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete menu item');
+    }
+
+    setMenuItems(menuItems.filter(item => item._id !== itemId)); // Update state
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const fetchRestaurantData = async (id) => {
     try {
@@ -201,7 +253,7 @@ const AdminDashboard = () => {
   const filteredOrders = restaurantData?.orders?.filter((order) => {
     const orderDate = new Date(order.orderDate);
     return (
-      order.user.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      order.user?.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (!startDate || orderDate >= startDate) &&
       (!endDate || orderDate <= endDate) &&
       (statusFilter === "all" || order.orderStatus === statusFilter)

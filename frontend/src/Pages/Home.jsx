@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { debounce } from 'lodash';
 import { jwtDecode } from 'jwt-decode';
-
+import Cookies from 'js-cookie';
 // Lazy-loaded components
 const HeroSection = lazy(() => import('../Components/HeroSection'));
 const FeaturedRestaurants = lazy(() => import("../Components/FeaturedRestaurants")); 
@@ -39,6 +39,7 @@ const MunchMateHomePage = () => {
   }, []);
   const handleLogout = () => {
     localStorage.removeItem('token');
+    Cookies.remove('token')
     setIsLoggedIn(false);
     navigate('/login');
   };
