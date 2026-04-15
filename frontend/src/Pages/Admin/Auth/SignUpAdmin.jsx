@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaUser, FaEnvelope, FaLock, FaArrowRight } from 'react-icons/fa';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,15 +20,12 @@ const SignupPage = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/admin/create', formData);
-      alert('Signup successful:', response.data);
-      // navigate('/admin/dashboard');
-      // Handle success (e.g., redirect, show a success message)
+      navigate('/admin/login');
     } catch (err) {
       console.error('Signup error:', err.response?.data || err.message);
-      
       setError(err.response?.data?.message || 'Something went wrong. Please try again.');
     }
-    
+
     setIsSubmitting(false);
   };
 
@@ -94,7 +88,12 @@ const SignupPage = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-blue-600">
-          <a href="#" className="hover:text-blue-800">Already have an account? Sign in</a>
+          <button
+            onClick={() => navigate('/admin/login')}
+            className="hover:text-blue-800"
+          >
+            Already have an account? Sign in
+          </button>
         </p>
       </div>
     </div>

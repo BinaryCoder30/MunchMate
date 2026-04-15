@@ -10,7 +10,7 @@ const Sidebar = ({ restaurantData, activeTab, setActiveTab, handleLogout, downlo
         <p className="text-sm text-indigo-200">{restaurantData?.location}</p>
       </div>
       <nav className="mt-4">
-        {["overview", "orders", "menu", "profit-loss", "deliveries", "settings"].map((tab) => (
+        {["overview", "orders", "menu", "settings"].map((tab) => (
           <motion.button 
             key={tab} 
             onClick={() => setActiveTab(tab)} 
@@ -21,14 +21,14 @@ const Sidebar = ({ restaurantData, activeTab, setActiveTab, handleLogout, downlo
             {tab === "overview" && <FaChartLine />}
             {tab === "orders" && <FaShoppingCart />}
             {tab === "menu" && <FaUtensils />}
-            {tab === "profit-loss" && <FaMoneyBillWave />}
-            {tab === "deliveries" && <FaTruck />}
+            {/* {tab === "profit-loss" && <FaMoneyBillWave />} */}
+            {/* {tab === "deliveries" && <FaTruck />} */}
             {/* {tab === "customer-stats" && <FaUser />} */}
             {tab === "settings" && <FaUserCircle />}
             <span>{tab.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>
           </motion.button>
         ))}
-        <motion.button 
+        {/* <motion.button 
           onClick={downloadReport} 
           className="w-full text-left px-6 py-4 hover:bg-indigo-800 transition-colors text-white flex items-center space-x-3 text-lg font-medium" 
           whileHover={{ scale: 1.05 }} 
@@ -36,7 +36,7 @@ const Sidebar = ({ restaurantData, activeTab, setActiveTab, handleLogout, downlo
         >
           <FaDownload />
           <span>Export Excel</span>
-        </motion.button>
+        </motion.button> */}
         <motion.button 
           onClick={handleLogout} 
           className="w-full text-left px-6 py-4 hover:bg-red-700 transition-colors text-white flex items-center space-x-3 text-lg font-medium" 

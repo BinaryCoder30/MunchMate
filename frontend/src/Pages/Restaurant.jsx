@@ -36,12 +36,12 @@ const RestaurantCard = ({ restaurant, onSelect }) => (
         <div className="flex items-center gap-2 sm:gap-4 text-sm sm:text-base">
           <div className="flex items-center text-[#D4AF37]">
             <FaStar className="mr-1 sm:mr-2" />
-            <span>{restaurant.rating || 'N/A'}</span>
+            <span>{restaurant.rating || '4.5'}</span>
           </div>
           <span className="text-gray-400">•</span>
           <div className="flex items-center text-[#2C3E50]">
             <FaClock className="mr-1 sm:mr-2" />
-            <span>{restaurant.deliveryTime || '25-35 min'}</span>
+            {/* <span>{restaurant.deliveryTime || '25-35 min'}</span> */}
           </div>
         </div>
       </div>
@@ -160,10 +160,10 @@ const RestaurantView = ({ restaurant, onAddToCart, onBack }) => {
             <p className="text-gray-100 text-sm sm:text-base mb-5 max-w-2xl">{restaurant.location}</p>
             <div className="flex items-center gap-3 sm:gap-5 text-sm sm:text-base">
               <span className="text-white flex items-center gap-2 bg-black/30 px-3 py-1 sm:px-4 sm:py-2 rounded-full">
-                <FaStar className="text-[#D4AF37]" /> {restaurant.rating || 'N/A'}
+                <FaStar className="text-[#D4AF37]" /> {restaurant.rating || '4.5'}
               </span>
               <span className="text-white flex items-center gap-2 bg-black/30 px-3 py-1 sm:px-4 sm:py-2 rounded-full">
-                <FaClock /> {restaurant.deliveryTime || '25-35 min'}
+                {/* <FaClock /> {restaurant.deliveryTime || '25-35 min'} */}
               </span>
             </div>
           </div>

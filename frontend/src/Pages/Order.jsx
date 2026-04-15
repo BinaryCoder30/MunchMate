@@ -32,14 +32,14 @@ const OrderCard = ({ order }) => {
         {new Date(order.orderDateTime).toLocaleString()}
       </p>
       <div className="border-t pt-4">
-        <h4 className="text-lg font-semibold text-[#2C3E50] mb-2">Items</h4>
+        {/* <h4 className="text-lg font-semibold text-[#2C3E50] mb-2">Items</h4>
         <ul className="space-y-2">
           {order.items && order.items.map((item, index) => (
             <li key={index} className="text-gray-600 text-sm">
               {item.quantity} x {item.menuItemID.name} - ₹{(item.quantity * item.menuItemID.price).toFixed(2)}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

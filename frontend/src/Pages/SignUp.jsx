@@ -113,12 +113,12 @@ const AuthForm = () => {
           {error && <p className="text-red-500 text-center mt-2">{error}</p>}
 
           {/* Social Logins */}
-          <p className="text-[#1e3a8a] text-center my-4">Or register with</p>
+          {/* <p className="text-[#1e3a8a] text-center my-4">Or register with</p>
           <div className="flex justify-center space-x-4">
             <button className="bg-[#1e3a8a] p-3 rounded-lg text-white hover:bg-[#1e3a8a]/90 transition-all duration-300 shadow-md"><FaGoogle className="w-5 h-5" /></button>
             <button className="bg-[#1e3a8a] p-3 rounded-lg text-white hover:bg-[#1e3a8a]/90 transition-all duration-300 shadow-md"><FaApple className="w-5 h-5" /></button>
             <button className="bg-[#1e3a8a] p-3 rounded-lg text-white hover:bg-[#1e3a8a]/90 transition-all duration-300 shadow-md"><FaFacebook className="w-5 h-5" /></button>
-          </div>
+          </div> */}
 
           {/* Login Section */}
           <p className="text-[#1e3a8a] text-center mt-6">Already have an account?</p>

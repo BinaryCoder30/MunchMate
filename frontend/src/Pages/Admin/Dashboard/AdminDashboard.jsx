@@ -333,15 +333,7 @@ const removeMenuItem = async (itemId) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-indigo-50 text-indigo-900 flex">
-      <Sidebar 
-        restaurantData={restaurantData} 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab}
-        handleLogout={handleLogout}
-        downloadReport={() => downloadReport(restaurantData, filteredOrders)}
-        onRestaurantChange={() => setShowRestaurantModal(true)}
-      />
-
+      
       <div className="flex-1 p-10 ml-64">
         <h1 className="text-4xl font-extrabold text-indigo-900 mb-8">
           {activeTab.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
@@ -395,6 +387,15 @@ const removeMenuItem = async (itemId) => {
           onClose={() => setShowCreateRestaurantModal(false)}
         />
       )}
+      <Sidebar 
+        restaurantData={restaurantData} 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab}
+        handleLogout={handleLogout}
+        downloadReport={() => downloadReport(restaurantData, filteredOrders)}
+        onRestaurantChange={() => setShowRestaurantModal(true)}
+      />
+
     </div>
   );
 };

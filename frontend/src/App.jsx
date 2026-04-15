@@ -1,9 +1,10 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes, Navigate } from "react-router-dom"; // Added Navigate import
+import AboutUs from "./Pages/About";
 
 // Lazy Loading Pages for Better Performance
 const Home = lazy(() => import("./Pages/Home"));
-const Profile = lazy(() => import("./Pages/Profile"));
+const About = lazy(() => import("./Pages/About"));
 const AuthForm = lazy(() => import("./Pages/SignUp"));
 const LoginPage = lazy(() => import("./Pages/Login"));
 const Restaurant = lazy(() => import("./Pages/Restaurant"));
@@ -49,7 +50,7 @@ function App() {
       <Suspense fallback={<div className="text-center mt-10">Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/about" element={<About />} />
           <Route path="/signup" element={<AuthForm />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/restaurant" element={<Restaurant />} />

@@ -66,7 +66,7 @@ const SettingsTab = () => {
                 className="w-full p-3 border border-indigo-200 rounded-lg bg-indigo-50 text-indigo-900" 
               />
             </div>
-            <div>
+            {/* <div>
               <label className="block text-indigo-700 font-medium mb-2">Old Password</label>
               <input 
                 type="password" 
@@ -74,8 +74,8 @@ const SettingsTab = () => {
                 onChange={(e) => setOldPassword(e.target.value)}
                 className="w-full p-3 border border-indigo-200 rounded-lg bg-white text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
               />
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <label className="block text-indigo-700 font-medium mb-2">New Password</label>
               <input 
                 type="password" 
@@ -83,16 +83,16 @@ const SettingsTab = () => {
                 onChange={(e) => setNewPassword(e.target.value)}
                 className="w-full p-3 border border-indigo-200 rounded-lg bg-white text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
               />
-            </div>
+            </div> */}
           </div>
-          <motion.button
+          {/* <motion.button
             type="submit"
             className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Save Changes
-          </motion.button>
+          </motion.button> */}
         </form>
       </div>
     </motion.div>

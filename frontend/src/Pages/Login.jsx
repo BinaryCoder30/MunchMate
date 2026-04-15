@@ -80,9 +80,9 @@ const LoginForm = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="flex justify-end mt-3"
         >
-          <p className="text-[#1e3a8a] text-sm underline cursor-pointer hover:text-[#1e3a8a]/80 transition-colors duration-300">
+          {/* <p className="text-[#1e3a8a] text-sm underline cursor-pointer hover:text-[#1e3a8a]/80 transition-colors duration-300">
             Forgot password?
-          </p>
+          </p> */}
         </motion.div>
 
         <motion.div
@@ -117,7 +117,7 @@ const LoginForm = () => {
           transition={{ duration: 0.5, delay: 1 }}
           className="flex justify-center space-x-4"
         >
-          <button className="bg-[#1e3a8a] p-3 rounded-lg text-white hover:bg-[#1e3a8a]/90 hover:scale-105 transition-all duration-300 shadow-md">
+          {/* <button className="bg-[#1e3a8a] p-3 rounded-lg text-white hover:bg-[#1e3a8a]/90 hover:scale-105 transition-all duration-300 shadow-md">
             <FaGoogle className="w-5 h-5" />
           </button>
           <button className="bg-[#1e3a8a] p-3 rounded-lg text-white hover:bg-[#1e3a8a]/90 hover:scale-105 transition-all duration-300 shadow-md">
@@ -125,7 +125,7 @@ const LoginForm = () => {
           </button>
           <button className="bg-[#1e3a8a] p-3 rounded-lg text-white hover:bg-[#1e3a8a]/90 hover:scale-105 transition-all duration-300 shadow-md">
             <FaFacebook className="w-5 h-5" />
-          </button>
+          </button> */}
         </motion.div>
 
         <motion.div
